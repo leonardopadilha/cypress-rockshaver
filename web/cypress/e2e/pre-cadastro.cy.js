@@ -1,24 +1,21 @@
 /// <reference types="cypress" />
 
-describe('Login', () => {
-  it('Deve logar com sucesso', () => {
+describe('Pré-cadastro', () => {
+  it('Deve realizar o pré-cadastro do cliente', () => {
     cy.visit('/')
 
-    cy.get('header nav a[href="entrar"]')
+    cy.get('header nav a[href="pre-cadastro"]')
         .click()
 
     cy.get('form h2')
         .should('be.visible')
         .and('have.text', 'Seus dados')
 
-    cy.get('input[placeholder="Nome"]')
+    cy.get('input[name="nome"]')
         .type('Leonardo Padilha')
 
-    cy.get('input[placeholder="E-mail"]')
+    cy.get('input[name="email"]')
         .type('leonardo@email.com')
-
-    cy.get('input[placeholder="Whatsapp"]')
-        .type('11999999999')
 
     cy.contains('button[type="submit"]', 'Continuar')
         .click()
