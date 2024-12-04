@@ -28,4 +28,27 @@ describe('Pré-cadastro', () => {
         .should('be.visible')
         .and('have.text', 'leonardo@email.com')
   })
+
+  it('Campos obrigatórios', () => {
+    cy.visit('/')
+
+    cy.get('header nav a[href="pre-cadastro"]')
+    .click()
+
+    cy.get('form h2')
+        .should('be.visible')
+        .and('have.text', 'Seus dados')
+
+    cy.contains('button[type="submit"]', 'Continuar')
+        .click()
+
+    cy.get('.alert-msg')
+        .should('be.visible')
+        .and('include.text', 'O campo nome é obrigatório.')
+
+    cy.get('.alert-msg')
+        .should('be.visible')
+        .and('include.text', 'O campo nome é obrigatório.')
+    
+    })
 })
