@@ -80,4 +80,32 @@ describe('Pré-cadastro', () => {
             .and('have.text', 'O campo e-mail é obrigatório.')
         
     })
+
+    it('Não deve fazer o pré-cadastro apenas com o primeiro nome', () => {
+        cy.visit('/')
+    
+        cy.get('header nav a[href="pre-cadastro"]')
+        .click()
+    
+        cy.get('form h2')
+            .should('be.visible')
+            .and('have.text', 'Seus dados')
+
+        cy.get('input[name="nome"]')
+            .type('Leonardo')
+
+        cy.get('input[name="email"]')
+            .type('leonardo@email.com')
+    
+        cy.contains('button[type="submit"]', 'Continuar')
+            .click()
+
+        //label[text()="Nome Completo"]/..//div[contains(@class, "alert-msg")]
+
+        cy.contains('label', 'Nome Completo')
+            .parent()
+            .find('.alert-msg')
+            .should('be.visible')
+            .and('have.text', 'Informe seu nome completo.')
+    })
 })
