@@ -108,4 +108,32 @@ describe('Pré-cadastro', () => {
             .should('be.visible')
             .and('have.text', 'Informe seu nome completo.')
     })
+
+    it('Não deve fazer o pré-cadastro apenas com email incorreto', () => {
+        cy.visit('/')
+    
+        cy.get('header nav a[href="pre-cadastro"]')
+        .click()
+    
+        cy.get('form h2')
+            .should('be.visible')
+            .and('have.text', 'Seus dados')
+
+        cy.get('input[name="nome"]')
+            .type('Leonardo Padilha')
+
+        cy.get('input[name="email"]')
+            .type('www.teste.com.br')
+    
+        cy.contains('button[type="submit"]', 'Continuar')
+            .click()
+
+        //label[text()="Nome Completo"]/..//div[contains(@class, "alert-msg")]
+
+        cy.contains('label', 'E-mail')
+            .parent()
+            .find('.alert-msg')
+            .should('be.visible')
+            .and('have.text', 'O e-mail inserido é inválido.')
+    })
 })
