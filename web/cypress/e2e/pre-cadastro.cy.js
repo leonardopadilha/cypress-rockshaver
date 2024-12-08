@@ -11,7 +11,7 @@ describe('Pré-cadastro', () => {
             .should('be.visible')
             .and('have.text', 'Seus dados')
 
-        cy.get('input[name="nome"]')
+        cy.get('input[name="full-name"]')
             .type('Leonardo Padilha')
 
         cy.get('input[name="email"]')
@@ -22,7 +22,7 @@ describe('Pré-cadastro', () => {
 
         cy.get('.user-name')
             .should('be.visible')
-            .and('have.text', 'Leonardo Padilha')
+            .and('have.text', 'Olá, Leonardo')
 
         cy.get('.user-email')
             .should('be.visible')
@@ -73,7 +73,7 @@ describe('Pré-cadastro', () => {
             .should('be.visible')
             .and('have.text', 'O campo nome é obrigatório.')
 
-        cy.contains('label', 'Nome Completo')
+        cy.contains('label', 'E-mail')
             .parent()
             .find('.alert-msg')
             .should('be.visible')
@@ -91,7 +91,7 @@ describe('Pré-cadastro', () => {
             .should('be.visible')
             .and('have.text', 'Seus dados')
 
-        cy.get('input[name="nome"]')
+        cy.get('input[name="full-name"]')
             .type('Leonardo')
 
         cy.get('input[name="email"]')
@@ -119,7 +119,7 @@ describe('Pré-cadastro', () => {
             .should('be.visible')
             .and('have.text', 'Seus dados')
 
-        cy.get('input[name="nome"]')
+        cy.get('input[name="full-name"]')
             .type('Leonardo Padilha')
 
         cy.get('input[name="email"]')
