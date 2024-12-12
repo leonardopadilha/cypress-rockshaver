@@ -1,18 +1,11 @@
 /// <reference types="cypress" />
 
 class PreRegPage {
-  go() {
-    cy.visit('/')
-
-    cy.get('header nav a[href="pre-cadastro"]')
-      .click()
-
+  fillForm(fullname, email) {
     cy.get('form h2')
       .should('be.visible')
       .and('have.text', 'Seus dados')
-    }
 
-  fillForm(fullname, email) {
     cy.get('input[name="fullname"]')
       .type(fullname)
 
@@ -23,16 +16,6 @@ class PreRegPage {
   submit() {
     cy.contains('button[type="submit"]', 'Continuar')
       .click()
-  }
-
-  verifyPreReg(firstname, email) {
-    cy.get('.user-name')
-    .should('be.visible')
-    .and('have.text', `Olá, ${firstname}`)
-
-  cy.get('.user-email')
-      .should('be.visible')
-      .and('have.text', email)
   }
 
   alertHave(fieldname, text) {

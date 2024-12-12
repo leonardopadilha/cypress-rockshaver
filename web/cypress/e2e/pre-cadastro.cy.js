@@ -1,18 +1,21 @@
-/// <reference types="cypress" />
+
+import homePage from "../support/pages/home-page"
 import preRegPage from "../support/pages/pre-reg.page"
 
 describe('Pré-cadastro', () => {
     it('Deve realizar o pré-cadastro do cliente', () => {
         const nome = 'Leonardo Padilha'
         const email = 'leonardo@email.com'
-        preRegPage.go()
+        homePage.go()
+        homePage.header.goToPreReg()
         preRegPage.fillForm(nome, email)
         preRegPage.submit()
-        preRegPage.verifyPreReg('Leonardo', email)
+        homePage.header.verifyPreReg('Leonardo', email)
     })
 
     it('Campos obrigatórios', () => {
-        preRegPage.go()
+        homePage.go()
+        homePage.header.goToPreReg()
         //preRegPage.fillForm('Leonardo Padilha', 'leonardo@email.com')
         preRegPage.submit()
 
@@ -27,7 +30,8 @@ describe('Pré-cadastro', () => {
     })
 
     it('Campos obrigatórios, validação com xpath', () => {
-        preRegPage.go()
+        homePage.go()
+        homePage.header.goToPreReg()
         //preRegPage.fillForm('Leonardo Padilha', 'leonardo@email.com')
         preRegPage.submit()
 
@@ -38,7 +42,8 @@ describe('Pré-cadastro', () => {
     })
 
     it('Não deve fazer o pré-cadastro apenas com o primeiro nome', () => {
-        preRegPage.go()
+        homePage.go()
+        homePage.header.goToPreReg()
         preRegPage.fillForm('Leonardo', 'leonardo@email.com')
         preRegPage.submit()
 
@@ -47,7 +52,8 @@ describe('Pré-cadastro', () => {
     })
 
     it('Não deve fazer o pré-cadastro apenas com email incorreto', () => {
-        preRegPage.go()
+        homePage.go()
+        homePage.header.goToPreReg()
         preRegPage.fillForm('Leonardo Padilha', 'www.teste.com.br')
         preRegPage.submit()
         
