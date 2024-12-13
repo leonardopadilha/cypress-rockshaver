@@ -15,15 +15,15 @@ class PreRegPage {
 
   submit() {
     cy.contains('button[type="submit"]', 'Continuar')
-      .click()
+        .click()
   }
 
   alertHave(fieldname, text) {
     cy.contains('label', fieldname)
-    .parent()
-    .find('.alert-msg')
-    .should('be.visible')
-    .and('have.text', text)
+        .parent()
+        .find('.alert-msg')
+        .should('be.visible')
+        .and('have.text', text)
   }
 }
 
