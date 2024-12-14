@@ -23,3 +23,46 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('startPreRegistration', (fullname = '', email = '') => {
+  cy.visit('/')
+
+  cy.get('header nav a[href="pre-cadastro"]')
+      .click()
+
+  cy.get('form h2')
+      .should('be.visible')
+      .and('have.text', 'Seus dados')
+
+  cy.get('input[name="fullname"]').as('fullname')
+  cy.get('input[name="email"]').as('email')
+
+  if (fullname) {
+    cy.get('@fullname').type(fullname)
+  }
+
+  if (email) {
+    cy.get('@email').type(email)
+  }
+
+  cy.contains('button[type="submit"]', 'Continuar')
+      .click()
+})
+
+Cypress.Commands.add('verifyPreRegistratered', (firstname, email) => {
+  cy.get('.user-name')
+    .should('be.visible')
+    .and('have.text', `Olá, ${firstname}`)
+
+  cy.get('.user-email')
+      .should('be.visible')
+      .and('have.text', email)
+})
+
+Cypress.Commands.add('alertHave', (fieldname, text) => {
+  cy.contains('label', fieldname)
+    .parent()
+    .find('.alert-msg')
+    .should('be.visible')
+    .and('have.text', text)
+})
