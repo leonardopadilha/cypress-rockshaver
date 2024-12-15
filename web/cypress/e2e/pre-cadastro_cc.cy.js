@@ -1,15 +1,17 @@
 
 describe('Pré-cadastro', () => {
     it('Deve realizar o pré-cadastro do cliente', () => {
-        const nome = 'Leonardo Padilha'
-        const email = 'leonardo@email.com'
+        const usuario = {
+            nome: 'Leonardo Padilha',
+            email: 'leonardo@email.com'
+        }
 
-        cy.startPreRegistration(nome, email)
-        cy.verifyPreRegistratered('Leonardo', email)
+        cy.iniciarPreCadastro(usuario)
+        cy.verificarPreCadastro(usuario)
     })
 
     it('Campos obrigatórios', () => {
-        cy.startPreRegistration()
+        cy.iniciarPreCadastro()
 
         cy.get('.alert-msg')
             .should('be.visible')
@@ -22,18 +24,28 @@ describe('Pré-cadastro', () => {
     })
 
     it('Campos obrigatórios, validação com xpath', () => {
-        cy.startPreRegistration()
-        cy.alertHave('Nome Completo', 'O campo nome é obrigatório.')
-        cy.alertHave('E-mail', 'O campo e-mail é obrigatório.')
+        cy.iniciarPreCadastro()
+        cy.verificarAlerta('Nome Completo', 'O campo nome é obrigatório.')
+        cy.verificarAlerta('E-mail', 'O campo e-mail é obrigatório.')
     })
 
     it('Não deve fazer o pré-cadastro apenas com o primeiro nome', () => {
-        cy.startPreRegistration('Leonardo', 'leonardo@email.com')
-        cy.alertHave('Nome Completo', 'Informe seu nome completo.')
+        const usuario = {
+            nome: 'Leonardo',
+            email: 'leonardo@email.com'
+        }
+
+        cy.iniciarPreCadastro(usuario)
+        cy.verificarAlerta('Nome Completo', 'Informe seu nome completo.')
     })
 
     it('Não deve fazer o pré-cadastro apenas com email incorreto', () => {
-        cy.startPreRegistration('Leonardo Padilha', 'www.teste.com.br')
-        cy.alertHave('E-mail', 'O e-mail inserido é inválido.')
+        const usuario = {
+            nome: 'Leonardo Padilha',
+            email: 'www.teste.com.br'
+        }
+
+        cy.iniciarPreCadastro(usuario)
+        cy.verificarAlerta('E-mail', 'O e-mail inserido é inválido.')
     })
 })
