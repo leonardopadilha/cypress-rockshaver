@@ -1,5 +1,11 @@
 describe('Agendamento', () => {
   it('Deve fazer um novo agendamento', () => {
+
+    cy.dropCollection('agendamentos', { failSilently: 'true' }).then(result => {
+      cy.log(result); 
+  });
+
+    
     const usuario = {
       nome: 'Usuário para Agendamento',
       email: 'usuario_ag@email.com'
