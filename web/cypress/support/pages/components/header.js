@@ -7,11 +7,11 @@ class Header {
   }
 
   verifyPreReg(firstname, email) {
-    cy.get('.user-name')
+    cy.get('.usuario-nome')
       .should('be.visible')
       .and('have.text', `Olá, ${firstname}`)
 
-    cy.get('.user-email')
+    cy.get('.usuario-email')
         .should('be.visible')
         .and('have.text', email)
   }
