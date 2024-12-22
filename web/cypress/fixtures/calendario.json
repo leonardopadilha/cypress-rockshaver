@@ -1,0 +1,44 @@
+[
+  {
+      "data": "2024-12-20T03:00:00.000Z",
+      "dia": "20",
+      "mes": "DEZ",
+      "ano": "2024",
+      "diaSemana": "Sexta"
+  },
+  {
+      "data": "2024-12-21T03:00:00.000Z",
+      "dia": "21",
+      "mes": "DEZ",
+      "ano": "2024",
+      "diaSemana": "Sábado"
+  },
+  {
+      "data": "2024-12-23T03:00:00.000Z",
+      "dia": "23",
+      "mes": "DEZ",
+      "ano": "2024",
+      "diaSemana": "Segunda"
+  },
+  {
+      "data": "2024-12-24T03:00:00.000Z",
+      "dia": "24",
+      "mes": "DEZ",
+      "ano": "2024",
+      "diaSemana": "Terça"
+  },
+  {
+      "data": "2024-12-25T03:00:00.000Z",
+      "dia": "25",
+      "mes": "DEZ",
+      "ano": "2024",
+      "diaSemana": "Quarta"
+  },
+  {
+      "data": "2024-12-26T03:00:00.000Z",
+      "dia": "26",
+      "mes": "DEZ",
+      "ano": "2024",
+      "diaSemana": "Quinta"
+  }
+]
