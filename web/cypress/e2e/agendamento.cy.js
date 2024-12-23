@@ -1,17 +1,23 @@
+import calendario from '../fixtures/calendario.json'
+import agendamentos from '../fixtures/agendamentos.json'
+
 describe('Agendamento', () => {
+  
   it('Deve fazer um novo agendamento', () => {
+
+    const agendamento = agendamentos.sucesso
 
     cy.dropCollection('agendamentos', { failSilently: 'true' }).then(result => {
       cy.log(result); 
   });
 
-    
-    const usuario = {
-      nome: 'Usuário para Agendamento',
-      email: 'usuario_ag@email.com'
-    }
-    cy.iniciarPreCadastro(usuario)
-    cy.verificarPreCadastro(usuario)
+    cy.intercept('GET', 'http://localhost:3333/api/calendario', {
+      statusCode: 200,
+      body: calendario
+    }).as('getCalendario')
+
+    cy.iniciarPreCadastro(agendamento.usuario)
+    cy.verificarPreCadastro(agendamento.usuario)
 
     cy.contains('a', 'Agendar um horário').click()
 
@@ -25,7 +31,7 @@ describe('Agendamento', () => {
     // Checkpoint
     cy.contains('span', 'Serviços').should('be.visible')
 
-    cy.contains('div', 'Combo')
+    cy.contains('div', agendamento.servico.descricao)
         .parent()
         .click()
 
@@ -33,9 +39,9 @@ describe('Agendamento', () => {
     cy.contains('span', 'Dias Disponíveis').should('be.visible')  
     cy.contains('span', 'Horários Disponíveis').should('be.visible')  
 
-    cy.contains('.dia-semana', '21').click()
+    cy.contains('.dia-semana', agendamento.dia).click()
 
-    cy.contains('.hora-opcao', '09:00').click()
+    cy.contains('.hora-opcao', agendamento.hora).click()
 
     cy.contains('button', 'Confirmar e reservar').click()
 
