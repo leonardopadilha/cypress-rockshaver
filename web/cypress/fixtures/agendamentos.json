@@ -3,6 +3,10 @@
     "data": "21/12/2024",
     "hora": "10:00",
     "dia": "21",
+    "profissional": {
+      "nome": "Tina",
+      "matricula": 1003
+    },
     "servico": {
       "codigo": 3,
       "descricao": "Combo"
@@ -13,5 +17,21 @@
     }
   },
   "conflito": {},
-  "duplicado": {}
+  "duplicado": {
+    "data": "23/12/2024",
+    "hora": "14:00",
+    "dia": "23",
+    "profissional": {
+      "nome": "Kurt",
+      "matricula": 1008
+    },
+    "servico": {
+      "codigo": 1,
+      "descricao": "Corte"
+    },
+    "usuario": {
+      "nome": "James Web",
+      "email": "james@email.com"
+    }
+  }
 }

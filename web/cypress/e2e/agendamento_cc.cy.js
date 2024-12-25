@@ -19,7 +19,7 @@ describe('Agendamento', () => {
     cy.iniciarPreCadastro(agendamento.usuario)
     cy.verificarPreCadastro(agendamento.usuario)
     cy.iniciarAgendamento()
-    cy.escolherProfissional(agendamento.profissional)
+    cy.escolherProfissional(agendamento.profissional.nome)
     cy.selecionarServico(agendamento.servico.descricao)
     cy.escolherDia(agendamento.dia)
     cy.escolherHorario(agendamento.hora)
@@ -33,5 +33,34 @@ describe('Agendamento', () => {
     cy.get('h3')
         .should('be.visible')
         .and('have.text', 'Tudo certo por aqui! Seu horário está confirmado.')
+  })
+
+  it('Deve mostrar o slot ocupado', () => {
+
+    const agendamento = agendamentos.duplicado
+
+    cy.dropCollection('agendamentos', { failSilently: 'true' }).then(result => {
+      cy.log(result); 
+    });
+
+    cy.agendamentoApi(agendamento)
+
+    cy.intercept('GET', 'http://localhost:3333/api/calendario', {
+      statusCode: 200,
+      body: calendario
+    }).as('getCalendario')
+
+    cy.iniciarPreCadastro(agendamento.usuario)
+    cy.verificarPreCadastro(agendamento.usuario)
+    cy.iniciarAgendamento()
+    cy.escolherProfissional(agendamento.profissional.nome)
+    cy.selecionarServico(agendamento.servico.descricao)
+    cy.escolherDia(agendamento.dia)
+
+    cy.get(`[slot="${agendamento.hora} - ocupado"]`)
+        .should('be.visible')
+        .find('svg')
+        .should('be.visible')
+        .and('have.css', 'color', 'rgb(255, 255, 255)')
   })
 })
