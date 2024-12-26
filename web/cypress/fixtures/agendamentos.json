@@ -16,7 +16,23 @@
       "email": "usuario_ag@email.com"
     }
   },
-  "conflito": {},
+  "conflito": {
+    "data": "23/12/2024",
+    "hora": "16:00",
+    "dia": "23",
+    "profissional": {
+      "nome": "Jimi",
+      "matricula": 1006
+    },
+    "servico": {
+      "codigo": 1,
+      "descricao": "Corte"
+    },
+    "usuario": {
+      "nome": "David Bowie",
+      "email": "david@email.com"
+    }
+  },
   "duplicado": {
     "data": "23/12/2024",
     "hora": "14:00",
