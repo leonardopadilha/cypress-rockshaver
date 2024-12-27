@@ -63,4 +63,34 @@ describe('Agendamento', () => {
         .should('be.visible')
         .and('have.css', 'color', 'rgb(255, 255, 255)')
   })
+
+  it('Deve retornar uma notificação no sumário em caso de conflito de disponibilidade', () => {
+
+    const agendamento = agendamentos.conflito
+
+    cy.dropCollection('agendamentos', { failSilently: 'true' }).then(result => {
+      cy.log(result); 
+    });
+
+    cy.intercept('GET', 'http://localhost:3333/api/calendario', {
+      statusCode: 200,
+      body: calendario
+    }).as('getCalendario')
+
+    cy.iniciarPreCadastro(agendamento.usuario)
+    cy.verificarPreCadastro(agendamento.usuario)
+    cy.iniciarAgendamento()
+    cy.escolherProfissional(agendamento.profissional.nome)
+    cy.selecionarServico(agendamento.servico.descricao)
+    cy.escolherDia(agendamento.dia)
+    cy.escolherHorario(agendamento.hora)
+
+    cy.agendamentoApi(agendamento)
+
+    cy.finalizarAgendamento()
+
+    cy.get('.alert-error')
+        .should('be.visible')
+        .and('have.text', 'Já existe um agendamento para esta data e hora. Por favor, escolha outro horário.')
+  })
 })
