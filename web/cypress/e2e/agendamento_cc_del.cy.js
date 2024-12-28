@@ -21,8 +21,7 @@ describe('Agendamento', () => {
       cy.log(result); 
     });
 
-    cy.iniciarPreCadastro(agendamento.usuario)
-    cy.verificarPreCadastro(agendamento.usuario)
+    cy.preCadastroLS(agendamento.usuario)
     cy.iniciarAgendamento()
     cy.escolherProfissional(agendamento.profissional.nome)
     cy.selecionarServico(agendamento.servico.descricao)
@@ -58,8 +57,7 @@ describe('Agendamento', () => {
       body: calendario
     }).as('getCalendario')
 
-    cy.iniciarPreCadastro(agendamento.usuario)
-    cy.verificarPreCadastro(agendamento.usuario)
+    cy.preCadastroLS(agendamento.usuario)
     cy.iniciarAgendamento()
     cy.escolherProfissional(agendamento.profissional.nome)
     cy.selecionarServico(agendamento.servico.descricao)
@@ -83,8 +81,7 @@ describe('Agendamento', () => {
       cy.log(result); 
     });
 
-    cy.iniciarPreCadastro(agendamento.usuario)
-    cy.verificarPreCadastro(agendamento.usuario)
+    cy.preCadastroLS(agendamento.usuario)
     cy.iniciarAgendamento()
     cy.escolherProfissional(agendamento.profissional.nome)
     cy.selecionarServico(agendamento.servico.descricao)
