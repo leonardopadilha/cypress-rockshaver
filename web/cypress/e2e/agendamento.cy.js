@@ -19,33 +19,35 @@ describe('Agendamento', () => {
     cy.iniciarPreCadastro(agendamento.usuario)
     cy.verificarPreCadastro(agendamento.usuario)
 
+    // Passo: Iniciar agendamento
     cy.contains('a', 'Agendar um horário').click()
 
-    // Checkpoint
+    // Passo: Escolher profissional
     cy.contains('span', 'Membros da Equipe').should('be.visible')
 
-    cy.contains('div', 'Tina')
+    cy.contains('div', agendamento.profissional.nome)
         .parent()
         .click()
 
-    // Checkpoint
+    // Passo: Selecionar serviço
     cy.contains('span', 'Serviços').should('be.visible')
 
     cy.contains('div', agendamento.servico.descricao)
         .parent()
         .click()
 
-    // Checkpoint
+    // Passo: Escolher o dia do agendamento
     cy.contains('span', 'Dias Disponíveis').should('be.visible')  
-    cy.contains('span', 'Horários Disponíveis').should('be.visible')  
-
     cy.contains('.dia-semana', agendamento.dia).click()
 
+    // Passo: Escolher horário do agendamento
+    cy.contains('span', 'Horários Disponíveis').should('be.visible')  
     cy.contains('.hora-opcao', agendamento.hora).click()
 
+    // Passo: Finalizar agendamento
     cy.contains('button', 'Confirmar e reservar').click()
 
-    // Checkpoint
+    // Desfecho
     cy.get('h2')
         .should('be.visible')
         .and('have.text', 'Let`s Rock')
