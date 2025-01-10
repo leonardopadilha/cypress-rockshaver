@@ -4,6 +4,12 @@ import { profissional, agendamentos } from '../fixtures/agendamentos.json'
 
 describe('Meus agendamentos', () => {
   it('Deve exibir os meus agendamentos', () => {
+
+    cy.deleteMany(
+      { matricula: profissional.matricula },
+      { collection: 'agendamentos' }
+    )
+
     agendamentos.forEach((a) => {
 
       cy.request({
@@ -24,7 +30,16 @@ describe('Meus agendamentos', () => {
       }).then((response) => {
         expect(response.status).to.eq(201)
       })
-
     })
+
+    cy.viewport('iphone-xr')
+    cy.visit('/')
+
+
+    cy.contains('p', 'Faça login com a sua conta')
+        .should('be.visible')
+
+    cy.login(profissional)
+    cy.verificarUsuarioLogado(profissional)
   })
 })
