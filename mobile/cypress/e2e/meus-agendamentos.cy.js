@@ -41,5 +41,19 @@ describe('Meus agendamentos', () => {
 
     cy.login(profissional)
     cy.verificarUsuarioLogado(profissional)
+
+    cy.get('ul li')
+        .should('be.visible')
+        .and('have.length', agendamentos.length)
+        .each(($li, index) => {
+          const agendamento = agendamentos[index]
+
+          const resultado = `${agendamento.servico.descricao} no dia ${agendamento.data} às ${agendamento.hora}`
+
+          cy.wrap($li)
+              .invoke('text')
+              .should('contain', agendamento.usuario.nome)
+              .and('contain', resultado)
+        })
   })
 })
