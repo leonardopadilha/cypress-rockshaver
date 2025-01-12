@@ -3,8 +3,8 @@
 import { profissional, agendamentos } from '../fixtures/agendamentos.json' 
 
 describe('Meus agendamentos', () => {
-  it('Deve exibir os meus agendamentos', () => {
 
+  before(() => {
     cy.deleteMany(
       { matricula: profissional.matricula },
       { collection: 'agendamentos' }
@@ -31,16 +31,20 @@ describe('Meus agendamentos', () => {
         expect(response.status).to.eq(201)
       })
     })
+  })
 
+  beforeEach(() => {
     cy.viewport('iphone-xr')
     cy.visit('/')
-
 
     cy.contains('p', 'Faça login com a sua conta')
         .should('be.visible')
 
     cy.login(profissional)
     cy.verificarUsuarioLogado(profissional)
+  })
+
+  it('Deve exibir os meus agendamentos', () => {
 
     cy.get('ul li')
         .should('be.visible')
@@ -55,5 +59,9 @@ describe('Meus agendamentos', () => {
               .should('contain', agendamento.usuario.nome)
               .and('contain', resultado)
         })
+  })
+
+  it('Deve cancelar um agendamento', () => {
+    
   })
 })
