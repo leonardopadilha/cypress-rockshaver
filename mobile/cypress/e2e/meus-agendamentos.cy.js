@@ -62,6 +62,22 @@ describe('Meus agendamentos', () => {
   })
 
   it('Deve cancelar um agendamento', () => {
-    
+    const agendamento = agendamentos.find(x => x.usuario.email === "peter.parker@stark.com")
+
+    cy.contains('ul li', agendamento.usuario.nome)
+        .as('agendamentoItem')
+
+    cy.get('@agendamentoItem')
+        .should('be.visible')
+        .click()
+
+    cy.contains('span', 'Cancelar agendamento')
+        .should('be.visible')
+        .click()
+
+    cy.verificarToast('Agendamento cancelado com sucesso!')
+
+    cy.contains('@agendamentoItem')
+        .should('not.exist')
   })
 })
