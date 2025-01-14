@@ -5,32 +5,7 @@ import { profissional, agendamentos } from '../fixtures/agendamentos.json'
 describe('Meus agendamentos', () => {
 
   before(() => {
-    cy.deleteMany(
-      { matricula: profissional.matricula },
-      { collection: 'agendamentos' }
-    )
-
-    agendamentos.forEach((a) => {
-
-      cy.request({
-        method: 'POST',
-        url: `${Cypress.env('baseApi')}/api/agendamentos`,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 3a8a9b8fae87baf503e7c5fe5b97fd72'
-        },
-        body: {
-          nomeCliente: a.usuario.nome,
-          emailCliente: a.usuario.email,
-          data: a.data,
-          hora: a.hora,
-          matricula: profissional.matricula,
-          codigoServico: a.servico.codigo
-        }
-      }).then((response) => {
-        expect(response.status).to.eq(201)
-      })
-    })
+    cy.criarAgendamentosApi(profissional, agendamentos)
   })
 
   beforeEach(() => {
@@ -79,5 +54,22 @@ describe('Meus agendamentos', () => {
 
     cy.contains('@agendamentoItem')
         .should('not.exist')
+  })
+
+  it('Deve enviar uma solicitação de lembrete', () => {
+    const agendamento = agendamentos.find(x => x.usuario.email === "natasha.romanoff@avengers.com")
+
+    cy.contains('ul li', agendamento.usuario.nome)
+        .as('agendamentoItem')
+
+    cy.get('@agendamentoItem')
+        .should('be.visible')
+        .click()
+
+    cy.contains('span', 'Enviar lembrete por e-mail')
+        .should('be.visible')
+        .click()
+
+    cy.verificarToast('Lembrete enviado com sucesso!')
   })
 })
