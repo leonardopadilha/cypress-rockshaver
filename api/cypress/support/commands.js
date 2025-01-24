@@ -28,10 +28,35 @@ Cypress.Commands.add('postAgendamento', (body) => {
   return cy.api({
     method: 'POST',
     url: '/api/agendamentos',
-  headers: {
-    'Authorization': 'Bearer 3a8a9b8fae87baf503e7c5fe5b97fd72'
-  },
-  body: body,
-  failOnStatusCode: false
+    headers: {
+      'Authorization': 'Bearer 3a8a9b8fae87baf503e7c5fe5b97fd72'
+    },
+    body: body,
+    failOnStatusCode: false
+  })
+})
+
+Cypress.Commands.add('postAgendamentos', (matricula, agendamentos) => {
+  cy.deleteMany({ matricula }, { collection: 'agendamentos' })
+
+  // É como se fosse o forEach
+  cy.wrap(agendamentos).each((a) => {
+    cy.api({
+      method: 'POST',
+      url: '/api/agendamentos',
+      headers: {
+        'Authorization': 'Bearer 3a8a9b8fae87baf503e7c5fe5b97fd72'
+      },
+      body: {
+        nomeCliente: a.nomeCliente,
+        emailCliente: a.emailCliente,
+        data: a.data,
+        hora: a.hora,
+        matricula: matricula,
+        codigoServico: a.codigoServico
+      },
+    }).should((response) => {
+      expect(response.status).to.eq(201)
+    })
   })
 })
