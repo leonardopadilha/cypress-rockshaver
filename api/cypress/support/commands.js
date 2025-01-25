@@ -24,6 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('login', (matricula, senha) => {
+  cy.api({
+    method: 'POST',
+    url: '/api/login',
+    body: { matricula, senha }
+  }).should((response) => {
+    expect(response.status).to.equal(200)
+    Cypress.env('token', response.body.token)
+  })
+})
+
 Cypress.Commands.add('postAgendamento', (body) => {
   return cy.api({
     method: 'POST',
