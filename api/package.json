@@ -15,6 +15,7 @@
     "cypress": "^13.17.0",
     "cypress-mongodb": "^6.2.1",
     "cypress-plugin-api": "^2.11.2",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.9.5"
   }
 }

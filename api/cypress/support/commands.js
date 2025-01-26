@@ -71,3 +71,14 @@ Cypress.Commands.add('postAgendamentos', (matricula, agendamentos) => {
     })
   })
 })
+
+Cypress.Commands.add('deleteAgendamento', (id) => {
+  return cy.api({
+    method: 'DELETE',
+    url: `http://localhost:3333/api/agendamentos/${id}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env('token')}`
+    },
+    failOnStatusCode: false
+  })
+})
