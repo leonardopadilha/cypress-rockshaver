@@ -14,19 +14,19 @@ pipeline {
         }
 
         stage('Testes no Frontend (Mobile)') {
-          steps {
-            dir('mobile') {
-              sh 'echo teste'
+            steps {
+                dir('mobile') {
+                  sh 'echo teste'
+                }
             }
-          }
         }
 
-        stage('Testes no Frontend (Web)') {
-          steps {
-            dir('web') {
-              sh 'echo teste web'
+        stage('Testes no Frontend (web)') {
+            steps {
+                dir('web') {
+                  sh 'echo teste'
+                }
             }
-          }
         }
     }
 }
