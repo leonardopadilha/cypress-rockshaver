@@ -3,6 +3,7 @@ const { defineConfig } = require("cypress");
 const { configurePlugin } = require("cypress-mongodb");
 
 module.exports = defineConfig({
+  projectId: "43fr26",
   env: {
     mongodb: {
         uri: process.env.MONGO_URL,

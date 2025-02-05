@@ -14,6 +14,7 @@ pipeline {
                   sh 'npm install'
                   sh 'npx cypress install --force'
                   sh 'npx cypress run --record --key  token-cypress-cloud'
+                  sh 'node runner'
                 }
             }
         }
